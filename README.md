@@ -73,6 +73,14 @@ incremental change capture.
 
 ## Run the pipeline
 
+On Windows, use a short checkout path and enable Git's long-path handling for this
+clone. Power BI project definitions include deeply nested visual folders:
+
+```powershell
+git clone -c core.longpaths=true https://github.com/mzha9797-create/olist-fulfilment-bi.git C:\Portfolio\olist-fulfilment-bi
+cd C:\Portfolio\olist-fulfilment-bi
+```
+
 The six required original CSVs are included under
 `TechnicalPortfolio/04_Data_Examples/03_Raw_Dataset`. Source attribution and hashes
 are recorded alongside them. A fresh build generates the SQLite database, the SQL
@@ -122,11 +130,16 @@ original at exact value level. Independent arithmetic, SQLite integrity and fore
 key checks also passed. A January 2018 / RJ filter reconciled 893 orders, 850 eligible
 orders and 111 late orders.
 
-This publication review used the bundled Python environment on one Windows computer.
-It did not repeat a fresh isolated-environment installation or native Power BI refresh
-on another computer. Earlier native Power BI acceptance is historical evidence;
-the current PBIX hash is recorded separately. Report screenshots show actual Power BI
-output. See `docs/verification.json` for the precise scope.
+The published pipeline was also downloaded into a fresh clone and run in a new
+isolated Python 3.12 environment. Pinned dependencies installed successfully,
+`pip check` passed, and all four documented entry points completed successfully.
+The clone reproduced the table counts, delivery metrics and filtered order counts.
+Git attributes preserve the original CSV and PDF bytes across Windows checkouts.
+
+These checks ran on one Windows computer. Native Power BI refresh and acceptance
+on another computer were not repeated. Earlier native Power BI acceptance is
+historical evidence; the current PBIX hash is recorded separately. Report screenshots
+show actual Power BI output. See `docs/verification.json` for the precise scope.
 
 ## Repository contents
 

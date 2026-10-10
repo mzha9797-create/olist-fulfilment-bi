@@ -85,7 +85,7 @@
   "review_date": "2026-10-10",
   "source_originals_unchanged": true,
   "tested_runtime": "Python 3.12.14; pandas 3.0.1; NumPy 2.3.5",
-  "scope": "Separate relocated copy on the same Windows computer using the bundled Python environment. All five tables and four views matched the original. Fresh isolated installation and native Power BI refresh were not repeated in this publication review.",
+  "scope": "A relocated local copy matched all five original tables and four original views. A fresh public Git clone then ran in a new isolated Python 3.12 environment on the same Windows computer. Pinned installation, pip check and all four documented entry points passed. Native Power BI refresh and independent-computer acceptance were not repeated.",
   "powerbi_snapshot_sha256": "0e7e358b38b959f91dc066051702c47e6ad1fee5fdf8dda3953ed96b5b87324f",
   "powerbi_acceptance_scope": "Earlier native acceptance refers to an older saved file; not claimed as exact current-file acceptance.",
   "excluded_from_publication": [
@@ -93,5 +93,88 @@
     "Full generated clean extracts and local execution logs",
     "Course handouts, backups and course recordings"
   ],
-  "student_identifier_removed_from_public_report": true
+  "student_identifier_removed_from_public_report": true,
+  "fresh_clone_execution": {
+    "runtime_status": "PASS",
+    "tested_pipeline_commit": "ec18b0fdb481c2f0840ab1d276f70ff910ffe556",
+    "checked_utc": "2026-10-10T10:50:27.643122+00:00",
+    "environment": "New isolated Python 3.12 virtual environment; system site packages disabled; pandas and numpy absent before installation.",
+    "runtime_versions": {
+      "python": "3.12.14",
+      "pandas": "3.0.1",
+      "numpy": "2.3.5",
+      "sqlite": "3.53.1"
+    },
+    "checks": [
+      {
+        "step": "public_clone",
+        "exit_code": 0,
+        "elapsed_seconds": 8.67
+      },
+      {
+        "step": "commit_sha",
+        "exit_code": 0,
+        "elapsed_seconds": 0.06
+      },
+      {
+        "step": "create_fresh_venv",
+        "exit_code": 0,
+        "elapsed_seconds": 3.9
+      },
+      {
+        "step": "fresh_runtime_before_install",
+        "exit_code": 0,
+        "elapsed_seconds": 0.07
+      },
+      {
+        "step": "install_pinned_dependencies",
+        "exit_code": 0,
+        "elapsed_seconds": 23.34
+      },
+      {
+        "step": "dependency_consistency",
+        "exit_code": 0,
+        "elapsed_seconds": 0.41
+      },
+      {
+        "step": "installed_runtime",
+        "exit_code": 0,
+        "elapsed_seconds": 2.82
+      },
+      {
+        "step": "audit_run",
+        "exit_code": 0,
+        "elapsed_seconds": 39.13
+      },
+      {
+        "step": "prepare_powerbi",
+        "exit_code": 0,
+        "elapsed_seconds": 16.47
+      },
+      {
+        "step": "build_explorer",
+        "exit_code": 0,
+        "elapsed_seconds": 3.33
+      },
+      {
+        "step": "validate_solution",
+        "exit_code": 0,
+        "elapsed_seconds": 13.57
+      }
+    ],
+    "metrics": {
+      "orders": 99441,
+      "item_rows": 112650,
+      "eligible": 96470,
+      "late": 6534,
+      "on_time_pct": 93.22690992018245,
+      "mean_delivery_days": 12.558173691015053,
+      "delivered_missing_date": 8
+    },
+    "native_powerbi_refresh_tested": false,
+    "independent_computer_tested": false,
+    "publication_changes_after_execution": "Documentation updated, Git byte-preservation attributes added, and original CRLF bytes restored in the category translation CSV. No analytical code or data values changed."
+  },
+  "windows_checkout": "Use a short path and per-clone core.longpaths=true. The committed .gitattributes disables line-ending conversion so original CSV and PDF bytes are preserved.",
+  "raw_csv_byte_preservation": "All six original raw CSVs are retained, including original line endings. Their SHA-256 values are listed in source_files."
 }
