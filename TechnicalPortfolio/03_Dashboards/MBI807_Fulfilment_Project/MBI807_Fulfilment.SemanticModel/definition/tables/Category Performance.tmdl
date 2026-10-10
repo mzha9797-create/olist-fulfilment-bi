@@ -1,0 +1,392 @@
+table 'Category Performance'
+	lineageTag: 666cc75c-f118-4988-817d-5d3124dce520
+
+	measure 'Total Categories' =
+			
+			DISTINCTCOUNT('Category Performance'[category_display])
+		formatString: 0
+		lineageTag: 3f04dbf9-4d41-47d6-9bc7-a2fb59a86cb7
+
+	measure 'Category Associated Orders' =
+			
+			SUM('Category Performance'[associated_orders])
+		formatString: #,0
+		lineageTag: 19eb36cf-e732-45ac-bb1c-f9c10c63a456
+
+	measure 'Eligible Category Orders' =
+			
+			SUM('Category Performance'[eligible_orders])
+		lineageTag: a2ea4bb9-4f60-490d-ba1a-3d17a1943c5b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Category On-time Delivery Rate' =
+			
+			DIVIDE(
+			    SUM('Category Performance'[eligible_orders])
+			        - SUM('Category Performance'[late_orders]),
+			    SUM('Category Performance'[eligible_orders])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d641c1d1-9223-4f37-bc80-9d27976ae6ad
+
+	measure 'Category Freight Burden' =
+			
+			DIVIDE(
+			    SUM('Category Performance'[freight_value]),
+			    SUM('Category Performance'[item_value])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8cd39cc8-ff11-4db0-a145-19bacbcc5542
+
+	measure 'Avg Category Delivery Days' =
+			
+			DIVIDE(SUM('Category Performance'[delivery_sum]), SUM('Category Performance'[delivery_n]))
+		lineageTag: 5480aa15-9a90-488e-8fe4-df75efe478d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Category Freight Value' =
+			
+			SUM('Category Performance'[freight_value])
+		lineageTag: cf7a0691-a144-41b0-a84d-0e727c3528d5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Category Item Value' =
+			
+			SUM('Category Performance'[item_value])
+		lineageTag: f161f6c7-0634-4004-b5f5-fe07a3b78c0c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Category Product Weight' =
+			
+			DIVIDE(SUM('Category Performance'[weight_sum]), SUM('Category Performance'[weight_n]))
+		formatString: 0
+		lineageTag: 5a8f65de-b702-4a8c-8a14-f6b715de6e3a
+
+	measure 'Avg Category Product Weight Benchmark' =
+			
+			CALCULATE(
+			    DIVIDE(SUM('Category Performance'[weight_sum]), SUM('Category Performance'[weight_n])),
+			    FILTER(
+			        ALL('Category Performance'),
+			        'Category Performance'[associated_orders] >= 300
+			    )
+			)
+		lineageTag: ffc1b638-43b8-4989-b305-115414226df2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Category Freight Burden Benchmark' =
+			
+			CALCULATE(
+			    DIVIDE(
+			        SUM('Category Performance'[freight_value]),
+			        SUM('Category Performance'[item_value])
+			    ),
+			    FILTER(
+			        ALL('Category Performance'),
+			        'Category Performance'[associated_orders] >= 300
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 202062ec-94bd-4190-949c-e58ecb114f04
+
+	measure 'Priority Category' =
+			
+			IF(
+			    [Category Associated Orders] >= 300
+			        && [Avg Category Product Weight] > [Avg Category Product Weight Benchmark]
+			        && [Category Freight Burden] > [Category Freight Burden Benchmark],
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: ab229cda-9eb3-44b5-975e-ab386940be0b
+
+	column category_display
+		dataType: string
+		lineageTag: 32d91385-4525-45f3-ae7f-1371c0fc928c
+		summarizeBy: none
+		sourceColumn: category_display
+
+		annotation SummarizationSetBy = Automatic
+
+	column distinct_products
+		dataType: double
+		formatString: 0
+		lineageTag: 86c75309-3989-4d8e-8455-af46432b99ba
+		summarizeBy: sum
+		sourceColumn: distinct_products
+
+		annotation SummarizationSetBy = Automatic
+
+	column catalog_products
+		dataType: double
+		formatString: 0
+		lineageTag: 2eb71753-e8dc-46f6-b5ce-b14f14913749
+		summarizeBy: sum
+		sourceColumn: catalog_products
+
+		annotation SummarizationSetBy = Automatic
+
+	column associated_orders
+		dataType: double
+		formatString: 0
+		lineageTag: 3d80115e-b4c7-41d7-8e3f-258705b40bad
+		summarizeBy: sum
+		sourceColumn: associated_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column eligible_orders
+		dataType: double
+		formatString: 0
+		lineageTag: 8c8f8f99-e007-4488-8a29-1ad32d8f4caf
+		summarizeBy: sum
+		sourceColumn: eligible_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_orders
+		dataType: double
+		formatString: 0
+		lineageTag: 94a5da77-8e4e-4498-ab58-5241840873ed
+		summarizeBy: sum
+		sourceColumn: late_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_time_rate_pct
+		dataType: double
+		formatString: 0.00
+		lineageTag: ef3ca0a2-0616-4820-8234-bf68efd327b6
+		summarizeBy: sum
+		sourceColumn: on_time_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_delivery_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: 63025c19-c669-4a2e-9030-1dd3ecc61aca
+		summarizeBy: sum
+		sourceColumn: avg_delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_processing_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: c0d8ab4f-5f9f-4249-8076-78a73faff592
+		summarizeBy: sum
+		sourceColumn: avg_processing_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_transit_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: 8aeb70ca-b887-4b08-86f2-3c72854a940c
+		summarizeBy: sum
+		sourceColumn: avg_transit_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_lines
+		dataType: double
+		formatString: 0
+		lineageTag: 3f14ba2c-93c9-488c-ba39-6b186da2c7b8
+		summarizeBy: sum
+		sourceColumn: item_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_value
+		dataType: double
+		formatString: 0.00
+		lineageTag: 3c9a3614-cb84-4704-ace0-28770bb7d19d
+		summarizeBy: sum
+		sourceColumn: item_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight_value
+		dataType: double
+		formatString: 0.00
+		lineageTag: 035a7733-7ab0-4030-b939-9ffaa8ccba9b
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight_to_item_value_pct
+		dataType: double
+		formatString: 0.00
+		lineageTag: 5c03b695-4947-46ed-9cf9-0081389377b4
+		summarizeBy: sum
+		sourceColumn: freight_to_item_value_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_product_weight_g
+		dataType: double
+		formatString: 0.00
+		lineageTag: a57e3a30-042b-4f6b-ac22-145e7b7f696b
+		summarizeBy: sum
+		sourceColumn: avg_product_weight_g
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category Rank' =
+			
+			VAR CurrentRate =
+			    'Category Performance'[on_time_rate_pct]
+			
+			VAR CurrentCategory =
+			    'Category Performance'[category_display]
+			
+			VAR CurrentEligible =
+			    'Category Performance'[eligible_orders]
+			
+			RETURN
+			IF(
+			    CurrentEligible >= 300
+			        && NOT ISBLANK(CurrentRate),
+			
+			    1 +
+			    COUNTROWS(
+			        FILTER(
+			            ALL('Category Performance'),
+			
+			            'Category Performance'[eligible_orders] >= 300
+			                &&
+			            NOT ISBLANK('Category Performance'[on_time_rate_pct])
+			                &&
+			            (
+			                'Category Performance'[on_time_rate_pct] < CurrentRate
+			                    ||
+			                (
+			                    'Category Performance'[on_time_rate_pct] = CurrentRate
+			                        &&
+			                    'Category Performance'[category_display] < CurrentCategory
+			                )
+			            )
+			        )
+			    )
+			)
+		formatString: 0
+		lineageTag: c6baa095-3719-4eb1-bbce-d27a45cf2311
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category Freight Rank' =
+			
+			VAR CurrentFreight =
+			    'Category Performance'[freight_to_item_value_pct]
+			
+			VAR CurrentCategory =
+			    'Category Performance'[category_display]
+			
+			VAR CurrentOrders =
+			    'Category Performance'[associated_orders]
+			
+			RETURN
+			IF(
+			    CurrentOrders >= 300
+			        && NOT ISBLANK(CurrentFreight),
+			
+			    1 +
+			    COUNTROWS(
+			        FILTER(
+			            ALL('Category Performance'),
+			
+			            'Category Performance'[associated_orders] >= 300
+			                &&
+			            NOT ISBLANK(
+			                'Category Performance'[freight_to_item_value_pct]
+			            )
+			                &&
+			            (
+			                'Category Performance'[freight_to_item_value_pct]
+			                    > CurrentFreight
+			
+			                ||
+			
+			                (
+			                    'Category Performance'[freight_to_item_value_pct]
+			                        = CurrentFreight
+			                    &&
+			                    'Category Performance'[category_display]
+			                        < CurrentCategory
+			                )
+			            )
+			        )
+			    )
+			)
+		formatString: 0
+		lineageTag: 15c8d245-7964-4050-8d9e-839f81f998a4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_sum
+		dataType: double
+		lineageTag: 369929f8-0f43-4e0d-974a-f9bda1718580
+		summarizeBy: sum
+		sourceColumn: delivery_sum
+
+	column delivery_n
+		dataType: double
+		lineageTag: f902097a-8acb-4fe5-8507-c7eaf49a2615
+		summarizeBy: sum
+		sourceColumn: delivery_n
+
+	column processing_sum
+		dataType: double
+		lineageTag: 28c73854-6abb-45e5-9452-9bbf51ef3dff
+		summarizeBy: sum
+		sourceColumn: processing_sum
+
+	column processing_n
+		dataType: double
+		lineageTag: 7735412a-0f6a-411e-8ad1-7462fe4b7a2b
+		summarizeBy: sum
+		sourceColumn: processing_n
+
+	column transit_sum
+		dataType: double
+		lineageTag: a4925d70-13aa-4420-8a1f-85c6e921e5a5
+		summarizeBy: sum
+		sourceColumn: transit_sum
+
+	column transit_n
+		dataType: double
+		lineageTag: a973cf0d-9388-452a-9791-ad5cbae854c0
+		summarizeBy: sum
+		sourceColumn: transit_n
+
+	column weight_sum
+		dataType: double
+		lineageTag: 7c58b02d-d579-425c-8047-489d6e2f9d0d
+		summarizeBy: sum
+		sourceColumn: weight_sum
+
+	column weight_n
+		dataType: double
+		lineageTag: 31bc935d-7a40-4e7d-9670-5ba74dd7009c
+		summarizeBy: sum
+		sourceColumn: weight_n
+
+	partition 'Category Performance' = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:/Portfolio/olist-fulfilment-bi/TechnicalPortfolio/04_Data_Examples/clean/vw_category_performance_powerbi.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				  Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				  Typed = Table.TransformColumnTypes(Headers, {{"category_display", type text},{"distinct_products", type number},{"catalog_products", type number},{"associated_orders", type number},{"eligible_orders", type number},{"late_orders", type number},{"on_time_rate_pct", type number},{"avg_delivery_days", type number},{"avg_processing_days", type number},{"avg_transit_days", type number},{"item_lines", type number},{"item_value", type number},{"freight_value", type number},{"freight_to_item_value_pct", type number},{"avg_product_weight_g", type number},{"delivery_sum", type number},{"delivery_n", type number},{"processing_sum", type number},{"processing_n", type number},{"transit_sum", type number},{"transit_n", type number},{"weight_sum", type number},{"weight_n", type number}}, "en-US")
+				in Typed
+

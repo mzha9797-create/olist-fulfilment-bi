@@ -1,0 +1,712 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "state_performance.late_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "State Performance",
+			          "ConceptualProperty": "Late Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Late Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "state_performance.eligible_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "State Performance",
+			          "ConceptualProperty": "Eligible Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Eligible Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "state_performance.ontime_delivery_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "State Performance",
+			          "ConceptualProperty": "On-time Delivery Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "On-time Delivery Rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "On-time Rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "state_performance.customer_state": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "State Performance",
+			          "ConceptualProperty": "customer_state"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "State": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "state_performance.avg_delivery_days": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "State Performance",
+			          "ConceptualProperty": "Avg Delivery Days"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg Delivery Days": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "state_performance.total_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "State Performance",
+			          "ConceptualProperty": "Total Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Total Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.associated_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Associated Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Associated Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.eligible_seller_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Eligible Seller Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Eligible Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.seller_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Seller Label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Seller": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.seller_ontime_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Seller On-time Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "On-time Rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.avg_seller_processing_days": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Avg Seller Processing Days"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg Processing Days": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.seller_late_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Seller Late Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Late Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.seller_ontime_delivery_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Seller On-time Delivery Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "On-time Delivery Rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "seller_performance.total_sellers": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Seller Performance",
+			          "ConceptualProperty": "Total Sellers"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Total Sellers": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "category_performance.category_display": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Category Performance",
+			          "ConceptualProperty": "category_display"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Category": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "category_performance.category_associated_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Category Performance",
+			          "ConceptualProperty": "Category Associated Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Associated Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "category_performance.avg_category_product_weight": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Category Performance",
+			          "ConceptualProperty": "Avg Category Product Weight"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg Weight (g)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "category_performance.category_freight_burden": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Category Performance",
+			          "ConceptualProperty": "Category Freight Burden"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Freight Burden": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "category_performance.category_ontime_delivery_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Category Performance",
+			          "ConceptualProperty": "Category On-time Delivery Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "On-time Rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "On-time Delivery Rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "category_performance.eligible_category_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Category Performance",
+			          "ConceptualProperty": "Eligible Category Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Eligible Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "category_performance.total_categories": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Category Performance",
+			          "ConceptualProperty": "Total Categories"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Total Categories": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "ml_predictions.test_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "Test Orders"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.late_precision": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "Late Precision"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.late_recall": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "Late Recall"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.review_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "Review Orders"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.order_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "order_label"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.customer_state": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "customer_state"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.main_category": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "main_category"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.risk_score": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "Risk Score"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_predictions.outcome": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Predictions",
+			          "ConceptualProperty": "outcome"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_comparison.model": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Comparison",
+			          "ConceptualProperty": "model"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_comparison.accuracy": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Comparison",
+			          "ConceptualProperty": "Accuracy"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_comparison.precision": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Comparison",
+			          "ConceptualProperty": "Precision"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_comparison.recall": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Comparison",
+			          "ConceptualProperty": "Recall"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_comparison.f1": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Comparison",
+			          "ConceptualProperty": "F1"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "ml_comparison.roc_auc": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ML Comparison",
+			          "ConceptualProperty": "ROC AUC"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "order_explorer.explorer_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Explorer",
+			          "ConceptualProperty": "Explorer Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_explorer.explorer_eligible_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Explorer",
+			          "ConceptualProperty": "Explorer Eligible Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Eligible Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_explorer.explorer_late_orders": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Explorer",
+			          "ConceptualProperty": "Explorer Late Orders"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Late Orders": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_explorer.explorer_ontime_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Explorer",
+			          "ConceptualProperty": "Explorer On-time Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "On-time Rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "order_explorer.explorer_coverage": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Order Explorer",
+			          "ConceptualProperty": "Explorer Coverage"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Coverage": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

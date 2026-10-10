@@ -1,0 +1,9 @@
+check,count
+Total orders,99441
+Duplicate order_id,0
+Delivered missing delivery date,8
+Carrier before purchase,161
+Delivered before carrier,23
+Temporal error records,184
+Extreme delivery records,118
+Eligible on-time orders,96470

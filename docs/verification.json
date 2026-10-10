@@ -1,0 +1,97 @@
+{
+  "commands": [
+    {
+      "script": "audit_run.py",
+      "exit_code": 0,
+      "elapsed_seconds": 40.72
+    },
+    {
+      "script": "prepare_powerbi.py",
+      "exit_code": 0,
+      "elapsed_seconds": 18.39
+    },
+    {
+      "script": "build_explorer.py",
+      "exit_code": 0,
+      "elapsed_seconds": 3.65
+    },
+    {
+      "script": "validate_solution.py",
+      "exit_code": 0,
+      "elapsed_seconds": 15.49
+    }
+  ],
+  "source_files": [
+    {
+      "file": "olist_customers_dataset.csv",
+      "rows": 99441,
+      "columns": 5,
+      "sha256": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2"
+    },
+    {
+      "file": "olist_orders_dataset.csv",
+      "rows": 99441,
+      "columns": 8,
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf"
+    },
+    {
+      "file": "olist_order_items_dataset.csv",
+      "rows": 112650,
+      "columns": 7,
+      "sha256": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279"
+    },
+    {
+      "file": "olist_products_dataset.csv",
+      "rows": 32951,
+      "columns": 9,
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc"
+    },
+    {
+      "file": "olist_sellers_dataset.csv",
+      "rows": 3095,
+      "columns": 4,
+      "sha256": "1f643d2b950373b85735e7794b20986f528d7a000432e7c6f9bcbb44d0846a0e"
+    },
+    {
+      "file": "product_category_name_translation.csv",
+      "rows": 71,
+      "columns": 2,
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278"
+    }
+  ],
+  "database_integrity": "ok",
+  "foreign_key_failures": [],
+  "table_counts": {
+    "orders": 99441,
+    "customers": 99441,
+    "order_items": 112650,
+    "products": 32951,
+    "sellers": 3095
+  },
+  "metrics": {
+    "orders": 99441,
+    "delivered": 96478,
+    "eligible_on_time": 96470,
+    "late": 6534,
+    "on_time_pct": 93.22690992018244,
+    "delivery_eligible": 96470,
+    "mean_delivery_days": 12.558173691015053,
+    "temporal_flags": 184,
+    "extreme_flags": 118,
+    "delivered_missing_date": 8
+  },
+  "unweighted_mean_of_state_means": 18.78037037037037,
+  "plotted_state_cohort_benchmark": 12.480656933405376,
+  "review_date": "2026-10-10",
+  "source_originals_unchanged": true,
+  "tested_runtime": "Python 3.12.14; pandas 3.0.1; NumPy 2.3.5",
+  "scope": "Separate relocated copy on the same Windows computer using the bundled Python environment. All five tables and four views matched the original. Fresh isolated installation and native Power BI refresh were not repeated in this publication review.",
+  "powerbi_snapshot_sha256": "0e7e358b38b959f91dc066051702c47e6ad1fee5fdf8dda3953ed96b5b87324f",
+  "powerbi_acceptance_scope": "Earlier native acceptance refers to an older saved file; not claimed as exact current-file acceptance.",
+  "excluded_from_publication": [
+    "Generated SQLite databases and SQL data dump",
+    "Full generated clean extracts and local execution logs",
+    "Course handouts, backups and course recordings"
+  ],
+  "student_identifier_removed_from_public_report": true
+}

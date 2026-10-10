@@ -1,0 +1,237 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "order_details",
+  "position": {
+    "x": 35,
+    "y": 690,
+    "width": 1850,
+    "height": 340,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "order_id"
+                }
+              },
+              "queryRef": "Order Explorer.order_id",
+              "nativeQueryRef": "order_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "purchase_date"
+                }
+              },
+              "queryRef": "Order Explorer.purchase_date",
+              "nativeQueryRef": "purchase_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "customer_state"
+                }
+              },
+              "queryRef": "Order Explorer.customer_state",
+              "nativeQueryRef": "customer_state"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "order_status"
+                }
+              },
+              "queryRef": "Order Explorer.order_status",
+              "nativeQueryRef": "order_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "item_count"
+                }
+              },
+              "queryRef": "Order Explorer.item_count",
+              "nativeQueryRef": "item_count"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "eligible_on_time"
+                }
+              },
+              "queryRef": "Order Explorer.eligible_on_time",
+              "nativeQueryRef": "eligible_on_time"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "late_flag"
+                }
+              },
+              "queryRef": "Order Explorer.late_flag",
+              "nativeQueryRef": "late_flag"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Order Explorer"
+                    }
+                  },
+                  "Property": "valid_delivery_days"
+                }
+              },
+              "queryRef": "Order Explorer.valid_delivery_days",
+              "nativeQueryRef": "valid_delivery_days"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Historical order details | 2016–2018 snapshot; incomplete edge cohorts require caution'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

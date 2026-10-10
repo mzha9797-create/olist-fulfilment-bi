@@ -1,0 +1,415 @@
+table 'Seller Performance'
+	lineageTag: 4921427b-8a27-4050-beb8-5513e7737875
+
+	measure 'Total Sellers' =
+			
+			DISTINCTCOUNT('Seller Performance'[seller_id])
+		formatString: #,0
+		lineageTag: 8805ebca-f270-4b75-b3c5-61821253174d
+
+	measure 'Associated Orders' =
+			
+			SUM('Seller Performance'[associated_orders])
+		formatString: #,0
+		lineageTag: fae7d213-168f-4517-8b4c-04e34882ec4e
+
+	measure 'Eligible Seller Orders' =
+			
+			SUM('Seller Performance'[eligible_orders])
+		formatString: #,0
+		lineageTag: 0d9925e6-9b5e-4277-8271-52140487310f
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Seller On-time Delivery Rate' =
+			
+			DIVIDE(
+			    SUM('Seller Performance'[eligible_orders])
+			        - SUM('Seller Performance'[late_orders]),
+			    SUM('Seller Performance'[eligible_orders])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c0213769-cd87-45e6-b3e5-cd044fdaeb02
+
+	measure 'Seller On-time Rate' =
+			
+			DIVIDE(
+			    SUM('Seller Performance'[eligible_orders])
+			        - SUM('Seller Performance'[late_orders]),
+			    SUM('Seller Performance'[eligible_orders])
+			)
+		lineageTag: 22b7e7ee-7724-41e4-afaf-856b39f41ae0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Seller Performance Rank' =
+			
+			VAR CurrentSeller =
+			    SELECTEDVALUE('Seller Performance'[seller_id])
+			
+			VAR CurrentRate =
+			    [Seller On-time Rate]
+			
+			VAR SellerPool =
+			    FILTER(
+			        ADDCOLUMNS(
+			            CALCULATETABLE(
+			                VALUES('Seller Performance'[seller_id]),
+			                REMOVEFILTERS(
+			                    'Seller Performance'[seller_id],
+			                    'Seller Performance'[Seller Label]
+			                )
+			            ),
+			            "__Eligible",
+			                CALCULATE([Eligible Seller Orders]),
+			            "__Rate",
+			                CALCULATE([Seller On-time Rate])
+			        ),
+			        [__Eligible] >= 100
+			            && NOT ISBLANK([__Rate])
+			    )
+			
+			RETURN
+			IF(
+			    [Eligible Seller Orders] >= 100
+			        && NOT ISBLANK(CurrentRate),
+			    1 +
+			        COUNTROWS(
+			            FILTER(
+			                SellerPool,
+			                [__Rate] < CurrentRate
+			                    ||
+			                (
+			                    [__Rate] = CurrentRate
+			                        &&
+			                    'Seller Performance'[seller_id] < CurrentSeller
+			                )
+			            )
+			        )
+			)
+		formatString: 0
+		lineageTag: 37f63d12-3aeb-486b-a0a7-6385b7f198d4
+
+	measure 'Seller Late Orders' =
+			
+			SUM('Seller Performance'[late_orders])
+		lineageTag: 24569800-759d-499e-ae11-7c8e71f48ad9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Seller Processing Days' =
+			
+			DIVIDE(SUM('Seller Performance'[processing_sum]), SUM('Seller Performance'[processing_n]))
+		lineageTag: 203ddc0f-87f1-4c40-92b1-9cba42265db4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Seller Processing Benchmark' =
+			
+			CALCULATE(
+			    DIVIDE(SUM('Seller Performance'[processing_sum]), SUM('Seller Performance'[processing_n])),
+			    FILTER(
+			        ALL('Seller Performance'),
+			        'Seller Performance'[eligible_orders] >= 100
+			    )
+			)
+		lineageTag: db4cc110-0b48-445e-a23e-4dbf77cea0d9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Seller On-time Benchmark' =
+			
+			DIVIDE(
+			    SUMX(
+			        FILTER(
+			            ALL('Seller Performance'),
+			            'Seller Performance'[eligible_orders] >= 100
+			        ),
+			        'Seller Performance'[eligible_orders] - 'Seller Performance'[late_orders]
+			    ),
+			    SUMX(
+			        FILTER(
+			            ALL('Seller Performance'),
+			            'Seller Performance'[eligible_orders] >= 100
+			        ),
+			        'Seller Performance'[eligible_orders]
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2d73ac64-74cc-4342-8c78-8031487462d7
+
+	measure 'Priority Seller' =
+			
+			IF(
+			    [Eligible Seller Orders] >= 100
+			        && [Avg Seller Processing Days] > [Avg Seller Processing Benchmark]
+			        && [Seller On-time Rate] < [Seller On-time Benchmark],
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 438d6db8-f164-407a-bcbd-b7a4b237f721
+
+	column seller_id
+		dataType: string
+		lineageTag: 332c0725-bf84-4084-be3c-cb2986c458ef
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_city
+		dataType: string
+		lineageTag: e9fa5ba6-a340-4f9b-a212-d0725c53729b
+		summarizeBy: none
+		sourceColumn: seller_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_state
+		dataType: string
+		lineageTag: 52b9d26d-2a6a-4ac4-8ba7-210fd194ab0d
+		summarizeBy: none
+		sourceColumn: seller_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column associated_orders
+		dataType: double
+		formatString: 0
+		lineageTag: 327a5989-0b4f-46df-aed7-6a2f92b2e64a
+		summarizeBy: sum
+		sourceColumn: associated_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column eligible_orders
+		dataType: double
+		formatString: 0
+		lineageTag: 60980eac-0c1f-4076-b0df-9a97bdb3c60f
+		summarizeBy: sum
+		sourceColumn: eligible_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_orders
+		dataType: double
+		formatString: 0
+		lineageTag: eb9c2ae0-975e-408f-bd7c-599b6491401c
+		summarizeBy: sum
+		sourceColumn: late_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_time_rate_pct
+		dataType: double
+		formatString: 0.00
+		lineageTag: 1186c802-18cd-45b9-8e79-b9f4f137f9dd
+		summarizeBy: sum
+		sourceColumn: on_time_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_delivery_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: 724f86c3-3aa8-431f-b759-c09c90227cc0
+		summarizeBy: sum
+		sourceColumn: avg_delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_processing_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: b306dd1c-5c80-4b9d-a8a9-1af683274a7b
+		summarizeBy: sum
+		sourceColumn: avg_processing_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_transit_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: ef1ff97c-96e0-4ddf-b265-90aa365f030e
+		summarizeBy: sum
+		sourceColumn: avg_transit_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_lines
+		dataType: double
+		formatString: 0
+		lineageTag: 380ef7e8-075e-4384-8f8e-80b6775d7881
+		summarizeBy: sum
+		sourceColumn: item_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_value
+		dataType: double
+		formatString: 0.00
+		lineageTag: a722bca1-a96f-4711-a780-cf00f9ff38e7
+		summarizeBy: sum
+		sourceColumn: item_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight_value
+		dataType: double
+		formatString: 0.00
+		lineageTag: fed76a99-1f17-4e46-aa29-bf5b8fdd9c96
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight_to_item_value_pct
+		dataType: double
+		formatString: 0.00
+		lineageTag: f4bf1daa-91b0-430b-8a00-01c3e4bb04e3
+		summarizeBy: sum
+		sourceColumn: freight_to_item_value_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller Label' =
+			
+			'Seller Performance'[seller_city]
+			    & " - "
+			    & LEFT('Seller Performance'[seller_id], 8)
+		lineageTag: c61a516e-3ac0-4d06-bb89-ebd8e7996adf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller Rank' =
+			
+			VAR CurrentRate =
+			    'Seller Performance'[on_time_rate_pct]
+			
+			VAR CurrentSeller =
+			    'Seller Performance'[seller_id]
+			
+			VAR CurrentEligible =
+			    'Seller Performance'[eligible_orders]
+			
+			RETURN
+			IF(
+			    CurrentEligible >= 100
+			        && NOT ISBLANK(CurrentRate),
+			
+			    1 +
+			    COUNTROWS(
+			        FILTER(
+			            ALL('Seller Performance'),
+			
+			            'Seller Performance'[eligible_orders] >= 100
+			                &&
+			            NOT ISBLANK('Seller Performance'[on_time_rate_pct])
+			                &&
+			            (
+			                'Seller Performance'[on_time_rate_pct] < CurrentRate
+			
+			                ||
+			
+			                (
+			                    'Seller Performance'[on_time_rate_pct] = CurrentRate
+			                        &&
+			                    'Seller Performance'[seller_id] < CurrentSeller
+			                )
+			            )
+			        )
+			    )
+			)
+		formatString: 0
+		lineageTag: b9860d1b-df74-469d-aa6e-2199a72d3a53
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller Late Rank' =
+			
+			VAR CurrentLate =
+			    'Seller Performance'[late_orders]
+			
+			VAR CurrentSeller =
+			    'Seller Performance'[seller_id]
+			
+			VAR CurrentEligible =
+			    'Seller Performance'[eligible_orders]
+			
+			RETURN
+			IF(
+			    CurrentEligible >= 100,
+			    1 +
+			    COUNTROWS(
+			        FILTER(
+			            ALL('Seller Performance'),
+			            'Seller Performance'[eligible_orders] >= 100
+			                &&
+			            (
+			                'Seller Performance'[late_orders] > CurrentLate
+			                ||
+			                (
+			                    'Seller Performance'[late_orders] = CurrentLate
+			                    &&
+			                    'Seller Performance'[seller_id] < CurrentSeller
+			                )
+			            )
+			        )
+			    )
+			)
+		formatString: 0
+		lineageTag: ebed6231-99e9-4756-b023-b979d734988a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_sum
+		dataType: double
+		lineageTag: 85e81bcb-6946-4bcd-b97d-d0a486ed5223
+		summarizeBy: sum
+		sourceColumn: delivery_sum
+
+	column delivery_n
+		dataType: double
+		lineageTag: 8ef0b0e4-cd19-48e2-9017-5bd7002e6447
+		summarizeBy: sum
+		sourceColumn: delivery_n
+
+	column processing_sum
+		dataType: double
+		lineageTag: fcd70589-fd16-482d-8175-b1f142099af2
+		summarizeBy: sum
+		sourceColumn: processing_sum
+
+	column processing_n
+		dataType: double
+		lineageTag: 63c14f69-730a-495d-9a2a-5551508b2373
+		summarizeBy: sum
+		sourceColumn: processing_n
+
+	column transit_sum
+		dataType: double
+		lineageTag: 033ac914-7b8b-45f8-8659-0bf9536b591f
+		summarizeBy: sum
+		sourceColumn: transit_sum
+
+	column transit_n
+		dataType: double
+		lineageTag: bba30dc8-4bd8-4621-8d4c-c5d12043b39c
+		summarizeBy: sum
+		sourceColumn: transit_n
+
+	partition 'Seller Performance' = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:/Portfolio/olist-fulfilment-bi/TechnicalPortfolio/04_Data_Examples/clean/vw_seller_performance_powerbi.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				  Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				  Typed = Table.TransformColumnTypes(Headers, {{"seller_id", type text},{"seller_city", type text},{"seller_state", type text},{"associated_orders", type number},{"eligible_orders", type number},{"late_orders", type number},{"on_time_rate_pct", type number},{"avg_delivery_days", type number},{"avg_processing_days", type number},{"avg_transit_days", type number},{"item_lines", type number},{"item_value", type number},{"freight_value", type number},{"freight_to_item_value_pct", type number},{"delivery_sum", type number},{"delivery_n", type number},{"processing_sum", type number},{"processing_n", type number},{"transit_sum", type number},{"transit_n", type number}}, "en-US")
+				in Typed
+
+	annotation PBI_ResultType = Table
+

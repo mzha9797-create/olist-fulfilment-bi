@@ -1,0 +1,33 @@
+# Local environments, caches and credentials
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+.DS_Store
+Thumbs.db
+~$*
+
+# Rebuildable database and SQL data dump
+*.sqlite
+*.sqlite-*
+*.db
+TechnicalPortfolio/01_Database/restore.sql
+
+# Clean row-level extracts are regenerated; retain selected aggregate examples
+TechnicalPortfolio/04_Data_Examples/clean/*
+!TechnicalPortfolio/04_Data_Examples/clean/data_quality_summary.csv
+!TechnicalPortfolio/04_Data_Examples/clean/vw_category_performance_powerbi.csv
+!TechnicalPortfolio/04_Data_Examples/clean/vw_seller_performance_powerbi.csv
+!TechnicalPortfolio/04_Data_Examples/clean/vw_state_delivery_performance_powerbi.csv
+
+# Machine-specific execution logs and Power BI editor caches
+TechnicalPortfolio/04_Data_Examples/verification/
+**/.pbi/
+*.pbix.lock
+*.zip

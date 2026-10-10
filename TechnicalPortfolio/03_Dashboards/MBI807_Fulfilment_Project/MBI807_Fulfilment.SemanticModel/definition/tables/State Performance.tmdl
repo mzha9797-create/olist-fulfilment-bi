@@ -1,0 +1,198 @@
+table 'State Performance'
+	lineageTag: ffabf28f-056e-4282-acc0-9d0681566cf2
+
+	measure 'Total Orders' =
+			
+			SUM('State Performance'[total_orders])
+		formatString: #,0
+		lineageTag: 5de3a160-1ef3-4037-9780-679c095147ea
+
+	measure 'Eligible Orders' =
+			
+			SUM('State Performance'[eligible_orders])
+		lineageTag: 334f4bf8-9425-4c71-a276-070678b8d332
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Late Orders' =
+			
+			SUM('State Performance'[late_orders])
+		lineageTag: 3eb72b6f-f074-475e-8c6f-88b7dde00db3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'On-time Delivery Rate' =
+			
+			DIVIDE(
+			    [Eligible Orders] - [Late Orders],
+			    [Eligible Orders],
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8807d3ef-a674-497e-a3b4-a616b04feb93
+
+	measure 'Avg Delivery Days' =
+			
+			DIVIDE(SUM('State Performance'[delivery_sum]), SUM('State Performance'[delivery_n]))
+		lineageTag: ff591987-38f9-404c-a9ac-6aef3bef5f57
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Delivery Days Benchmark' =
+			
+			CALCULATE(
+			    DIVIDE(SUM('State Performance'[delivery_sum]), SUM('State Performance'[delivery_n])),
+			    REMOVEFILTERS('State Performance'[customer_state]),
+			    'State Performance'[eligible_orders] >= 300
+			)
+		lineageTag: 959c306d-3ad9-4330-9ac0-04ecba39b91e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Priority State' =
+			
+			IF(
+			    [Avg Delivery Days] > [Avg Delivery Days Benchmark]
+			        && [On-time Delivery Rate] < 0.9323,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: baa4acf0-fc94-41ce-903d-8a604e594efb
+
+	column customer_state
+		dataType: string
+		lineageTag: 06096946-b7ef-4b2d-9a8d-f9ab2874f4f5
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_orders
+		dataType: double
+		formatString: 0
+		lineageTag: b77f5f05-f305-401b-b3f8-929a6102e7c4
+		summarizeBy: sum
+		sourceColumn: total_orders
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column eligible_orders
+		dataType: double
+		formatString: 0
+		lineageTag: dee807ee-da1c-4f55-af50-0bead1c4d564
+		summarizeBy: sum
+		sourceColumn: eligible_orders
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_orders
+		dataType: double
+		formatString: 0
+		lineageTag: 9ae14735-e942-4b72-8a7b-1fb14f5fa982
+		summarizeBy: sum
+		sourceColumn: late_orders
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_time_rate_pct
+		dataType: double
+		formatString: 0.00
+		lineageTag: 90a724fc-bafa-4d2b-9f50-a13191c73fc1
+		summarizeBy: sum
+		sourceColumn: on_time_rate_pct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_delivery_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: 04bf2d6a-cd71-4801-ab52-dda8eb1c2ed3
+		summarizeBy: sum
+		sourceColumn: avg_delivery_days
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_processing_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: 60ffc495-3c82-4612-8987-56c9f6e982db
+		summarizeBy: sum
+		sourceColumn: avg_processing_days
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_transit_days
+		dataType: double
+		formatString: 0.00
+		lineageTag: 14e1de6a-cfe9-4363-a4f2-8906ab9d2820
+		summarizeBy: sum
+		sourceColumn: avg_transit_days
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_sum
+		dataType: double
+		lineageTag: f86e76fc-9003-45fb-aafc-2b52ec20ed18
+		summarizeBy: sum
+		sourceColumn: delivery_sum
+
+	column delivery_n
+		dataType: double
+		lineageTag: 46865d72-224a-41da-8ca4-a7c9a31c4310
+		summarizeBy: sum
+		sourceColumn: delivery_n
+
+	column processing_sum
+		dataType: double
+		lineageTag: da9b3cc7-5387-4f22-839b-53d3d8e396fa
+		summarizeBy: sum
+		sourceColumn: processing_sum
+
+	column processing_n
+		dataType: double
+		lineageTag: 75c529e8-dc40-4b80-8669-b33e813ea1c7
+		summarizeBy: sum
+		sourceColumn: processing_n
+
+	column transit_sum
+		dataType: double
+		lineageTag: 32399ecc-f37c-4a3f-8aff-2025eeb8c8c3
+		summarizeBy: sum
+		sourceColumn: transit_sum
+
+	column transit_n
+		dataType: double
+		lineageTag: 7ab235c3-044d-41c7-9697-754c18113d95
+		summarizeBy: sum
+		sourceColumn: transit_n
+
+	partition 'State Performance' = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:/Portfolio/olist-fulfilment-bi/TechnicalPortfolio/04_Data_Examples/clean/vw_state_delivery_performance_powerbi.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				  Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				  Typed = Table.TransformColumnTypes(Headers, {{"customer_state", type text},{"total_orders", type number},{"eligible_orders", type number},{"late_orders", type number},{"on_time_rate_pct", type number},{"avg_delivery_days", type number},{"avg_processing_days", type number},{"avg_transit_days", type number},{"delivery_sum", type number},{"delivery_n", type number},{"processing_sum", type number},{"processing_n", type number},{"transit_sum", type number},{"transit_n", type number}}, "en-US")
+				in Typed
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

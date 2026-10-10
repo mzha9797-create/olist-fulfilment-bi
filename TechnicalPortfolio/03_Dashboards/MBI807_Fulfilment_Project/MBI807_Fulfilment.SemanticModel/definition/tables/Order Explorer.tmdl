@@ -1,0 +1,106 @@
+table 'Order Explorer'
+	lineageTag: 8e41286a-b3d0-4998-83a4-d106cd82cf9e
+
+	measure 'Explorer Orders' = COUNTROWS('Order Explorer')
+		formatString: #,0
+		lineageTag: 686e8ec3-cb67-4bd2-aa7d-d416ff32e26e
+
+	measure 'Explorer Eligible Orders' = SUM('Order Explorer'[eligible_on_time])
+		formatString: #,0
+		lineageTag: ed082056-e344-4706-a413-eab8bb3f818e
+
+	measure 'Explorer Late Orders' = SUM('Order Explorer'[late_flag])
+		formatString: #,0
+		lineageTag: d9867f09-ebbb-455a-a33d-b1d6a92e9fe7
+
+	measure 'Explorer On-time Rate' = IF([Explorer Eligible Orders] > 0, 1 - DIVIDE([Explorer Late Orders], [Explorer Eligible Orders]))
+		formatString: 0.00%
+		lineageTag: 49c50c7a-3f71-4737-81ab-90d99c3eaa8a
+
+	measure 'Explorer Late Rate' = DIVIDE([Explorer Late Orders], [Explorer Eligible Orders])
+		formatString: 0.00%
+		lineageTag: 32f43815-8e85-4813-a7c3-3b35a253311f
+
+	measure 'Explorer Coverage' = DIVIDE([Explorer Eligible Orders], [Explorer Orders])
+		formatString: 0.00%
+		lineageTag: 40fce354-cc87-45c9-bf8c-1bc8b98a7d11
+
+	measure 'Explorer Mean Delivery Days' = AVERAGE('Order Explorer'[valid_delivery_days])
+		formatString: 0.00
+		lineageTag: debe5cc2-854a-40b9-a7a8-2a2521c799dd
+
+	column order_id
+		dataType: string
+		lineageTag: e0e446e4-c996-4fab-bd1d-c7e09e0b654b
+		summarizeBy: none
+		sourceColumn: order_id
+
+	column customer_state
+		dataType: string
+		lineageTag: 45439d36-5535-411c-8372-991c8c7346ac
+		summarizeBy: none
+		sourceColumn: customer_state
+
+	column order_status
+		dataType: string
+		lineageTag: 41da25ec-cda8-408f-bf44-840b9285ee3b
+		summarizeBy: none
+		sourceColumn: order_status
+
+	column purchase_date
+		dataType: string
+		lineageTag: 0a040450-76c9-4c25-a4fc-189daf453e21
+		summarizeBy: none
+		sourceColumn: purchase_date
+
+	column purchase_month
+		dataType: string
+		lineageTag: 562de4b4-847d-44e9-8b24-74ec0ab5a20b
+		summarizeBy: none
+		sourceColumn: purchase_month
+
+	column item_count
+		dataType: double
+		lineageTag: d8f1fb34-2eed-42c6-81ee-ceabe1f29b3e
+		summarizeBy: none
+		sourceColumn: item_count
+
+	column item_value
+		dataType: double
+		lineageTag: 2f1a3096-1a31-4631-b80a-f11d0d591a6a
+		summarizeBy: none
+		sourceColumn: item_value
+
+	column freight_value
+		dataType: double
+		lineageTag: 7f37374e-3caf-4f9e-a533-c4daec7f343f
+		summarizeBy: none
+		sourceColumn: freight_value
+
+	column eligible_on_time
+		dataType: double
+		lineageTag: 8289ef98-8d3f-42f1-83eb-3df3c3bb42ea
+		summarizeBy: none
+		sourceColumn: eligible_on_time
+
+	column late_flag
+		dataType: double
+		lineageTag: 06518ee7-1d40-4810-a16d-c351476cefe9
+		summarizeBy: none
+		sourceColumn: late_flag
+
+	column valid_delivery_days
+		dataType: double
+		lineageTag: cf037ce1-c1cd-444a-a359-3ba1df506fcb
+		summarizeBy: none
+		sourceColumn: valid_delivery_days
+
+	partition 'Order Explorer' = m
+		mode: import
+		source =
+				let
+				 Source = Csv.Document(File.Contents("C:/Portfolio/olist-fulfilment-bi/TechnicalPortfolio/04_Data_Examples/clean/order_explorer.csv"),[Delimiter=",",Encoding=65001,QuoteStyle=QuoteStyle.Csv]),
+				 Headers = Table.PromoteHeaders(Source,[PromoteAllScalars=true]),
+				 Typed = Table.TransformColumnTypes(Headers,{{"order_id", type text},{"customer_state", type text},{"order_status", type text},{"purchase_date", type text},{"purchase_month", type text},{"item_count", type number},{"item_value", type number},{"freight_value", type number},{"eligible_on_time", type number},{"late_flag", type number},{"valid_delivery_days", type number}},"en-US")
+				in Typed
+
